@@ -1,0 +1,10 @@
+# 真实 ip 检测用
+DOMAIN-SUFFIX,ifconfig.me
+
+# Stream 下载白名单，如果该项放到代理里面去下载游戏的话，会导致流量超支
+# https://github.com/ACL4SSR/ACL4SSR/issues/17
+DOMAIN-SUFFIX,steamcdn-a.akamaihd.net
+
+# snapdrop.net 本地局域网文件传输工具
+DOMAIN-SUFFIX,snapdrop.net
+
