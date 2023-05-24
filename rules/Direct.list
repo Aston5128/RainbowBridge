@@ -8,5 +8,14 @@ DOMAIN-SUFFIX,steamcdn-a.akamaihd.net
 # snapdrop.net 本地局域网文件传输工具
 DOMAIN-SUFFIX,snapdrop.net
 
+# AnyDesk 多端远程控制软件，替换 TeamViewer 首选
+anydesk.com
+
+# Cloudflare
+cloudflare.com
+
+# Adsblock Plus 去广告的浏览器插件
+adsblock.org
+
 DOMAIN-SUFFIX,maycur.com
 DOMAIN-SUFFIX,maycur.cc
