@@ -17,5 +17,8 @@ DOMAIN-SUFFIX,cloudflare.com
 # Adsblock Plus 去广告的浏览器插件
 DOMAIN-SUFFIX,adsblock.org
 
+# JetBrains 
+DOMAIN-SUFFIX,jetbrains.com
+
 DOMAIN-SUFFIX,maycur.com
 DOMAIN-SUFFIX,maycur.cc
