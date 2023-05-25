@@ -20,5 +20,8 @@ DOMAIN-SUFFIX,adsblock.org
 # JetBrains 
 DOMAIN-SUFFIX,jetbrains.com
 
+# Bitwarden 类 1Password 并且开源的密码管理
+DOMAIN-SUFFIX,bitwarden.com
+
 DOMAIN-SUFFIX,maycur.com
 DOMAIN-SUFFIX,maycur.cc
