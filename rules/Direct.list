@@ -23,5 +23,8 @@ DOMAIN-SUFFIX,jetbrains.com
 # Bitwarden 类 1Password 并且开源的密码管理
 DOMAIN-SUFFIX,bitwarden.com
 
+# Wargaming 游戏下载
+DOMAIN-SUFFIX,wargaming.net
+
 DOMAIN-SUFFIX,maycur.com
 DOMAIN-SUFFIX,maycur.cc
