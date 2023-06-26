@@ -11,9 +11,6 @@ DOMAIN-SUFFIX,snapdrop.net
 # AnyDesk 多端远程控制软件，替换 TeamViewer 首选
 DOMAIN-SUFFIX,anydesk.com
 
-# Cloudflare
-DOMAIN-SUFFIX,cloudflare.com
-
 # Adsblock Plus 去广告的浏览器插件
 DOMAIN-SUFFIX,adsblock.org
 
