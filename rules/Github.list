@@ -1,0 +1,11 @@
+# 由于 Github 经常遭受国内的 DNS 污染，需要走代理，但是 github 的新服务 copilot 对于账号检测比较严格，需要固定 IP or 原生 IP
+# 这里将 Github 域名单独划分一个分流规则，以便配置分流
+
+# Github
+DOMAIN-SUFFIX,github.com
+DOMAIN-SUFFIX,ghcr.io
+DOMAIN-SUFFIX,githubapp.com
+DOMAIN-SUFFIX,github.com.herokudns.com
+DOMAIN-SUFFIX,github.community
+DOMAIN-SUFFIX,github.io
+DOMAIN-SUFFIX,githubusercontent.com
