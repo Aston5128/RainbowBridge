@@ -25,3 +25,11 @@ DOMAIN-SUFFIX,wargaming.net
 
 # z2u 账号交易平台
 DOMAIN-SUFFIX,z2u.com
+
+# 费控平台
+DOMAIN-SUFFIX,fenbeitong.com
+DOMAIN-SUFFIX,fenbeitong.cc
+DOMAIN-SUFFIX,maycur.com
+DOMAIN-SUFFIX,maycur.cc
+DOMAIN-SUFFIX,huilianyi.com
+DOMAIN-SUFFIX,ekuaibao.com
