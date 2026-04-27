@@ -33,3 +33,6 @@ DOMAIN-SUFFIX,maycur.com
 DOMAIN-SUFFIX,maycur.cc
 DOMAIN-SUFFIX,huilianyi.com
 DOMAIN-SUFFIX,ekuaibao.com
+
+# CDN
+DOMAIN-SUFFIX,jsdelivr.net
