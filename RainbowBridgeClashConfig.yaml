@@ -67,9 +67,12 @@ dns:
   listen: 0.0.0.0:53
   enhanced-mode: fake-ip # 模式：redir-host或fake-ip
   fake-ip-range: 198.18.0.1/16 #
+  fake-ip-filter-mode: blacklist
   fake-ip-filter: # fake ip 白名单列表，如果你不知道这个参数的作用，请勿修改
     - '*.lan'
     - localhost.ptlogin2.qq.com
+    - '*.qlogo.cn'
+    - '*.qpic.cn'
   default-nameserver:
     - 223.5.5.5 # 阿里DNS
     - 119.29.29.29 # 腾讯DNS
@@ -77,9 +80,28 @@ dns:
     - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
     - 114.114.114.114 # 114DNS
     #  - 180.76.76.76 # 百度DNS
+  nameserver-policy:
+    geosite:private,cn: &cn_dns
+      - 223.5.5.5
+      - 119.29.29.29
+      - 117.50.10.10
+      - 114.114.114.114
+    '+.qq.com': *cn_dns
+    '+.gtimg.com': *cn_dns
+    '+.myqcloud.com': *cn_dns
+    '+.qlogo.cn': *cn_dns
+    '+.qpic.cn': *cn_dns
+    '+.wechat.com': *cn_dns
+    '+.weixin.com': *cn_dns
   nameserver:
     - https://dns.alidns.com/dns-query # 阿里 DoH DNS
     - https://doh.360.cn/dns-query # 360 DoH DNS
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 117.50.10.10
+    - 114.114.114.114
+  direct-nameserver-follow-policy: true
   fallback:
     - 8.8.8.8 # 谷歌DNS
     - 1.1.1.1 # Cloudflare DNS
@@ -99,12 +121,15 @@ dns:
 #   (2) clash 将选取 nameserver 列表内，解析最快的结果。
 #   (3) 若解析结果中，IP 地址属于 国外，那么 clash 将选择 fallback 列表内，解析最快的结果。
 #
-#   因此，我在 nameserver 和 fallback 内都放置了无污染、解析速度较快的国内 DNS 服务器，以达到最快的解析速度。
-#   但是 fallback 列表内服务器会用在解析境外网站，为了结果绝对无污染，我仅保留了支持 DoT/DoH 的两个服务器。
+#   为了兼顾 Mihomo 通用性和国内 CDN 体验，下面额外使用 nameserver-policy + direct-nameserver：
+#   - 国内域名、私有域名和腾讯/微信常见域名优先交给国内 DNS 解析。
+#   - 直连流量也优先使用国内 DNS，减少 fake-ip + 远端 DoH 对国内 CDN 调度的影响。
+#   - 其他域名继续使用 nameserver / fallback 组合，以保持对境外域名的抗污染能力。
 #
 # 2. clash DNS 配置注意事项：
 #   (1) 如果您为了确保 DNS 解析结果无污染，请仅保留列表内以 tls:// 或 https:// 开头的 DNS 服务器，但是通常对于国内域名没有必要。
-#   (2) 如果您不在乎可能解析到污染的结果，更加追求速度。请将 nameserver 列表的服务器插入至 fallback 列表内，并移除重复项。
+#   (2) 如果您主要遇到的是国内服务加载慢、图片慢、CDN 命中不佳，优先调整 nameserver-policy / direct-nameserver，而不是先改分流规则。
+#   (3) fake-ip-filter 仅保留对少量国内高频图片域名的例外，避免一开始大面积放开 fake-ip。
 #
 # 3. 关于 DNS over HTTPS (DoH) 和 DNS over TLS (DoT) 的选择：
 #   对于两项技术双方各执一词，而且会无休止的争论，各有利弊。各位请根据具体需求自行选择，但是配置文件内默认启用 DoT，因为目前国内没有封锁或管制。
