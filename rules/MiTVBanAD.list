@@ -1,0 +1,32 @@
+# Xiaomi TV ad domains
+# Conservative set: only obvious ad-serving and ad-tracking endpoints.
+DOMAIN-SUFFIX,ad.mi.com
+DOMAIN-SUFFIX,ad.xiaomi.com
+DOMAIN-SUFFIX,ad1.xiaomi.com
+DOMAIN-SUFFIX,api.ad.xiaomi.com
+DOMAIN-SUFFIX,new.api.ad.xiaomi.com
+DOMAIN-SUFFIX,test.new.api.ad.xiaomi.com
+DOMAIN-SUFFIX,test.ad.xiaomi.com
+DOMAIN-SUFFIX,adkconfig.ad.xiaomi.com
+DOMAIN-SUFFIX,sdkconfig.ad.xiaomi.com
+DOMAIN-SUFFIX,ssp.ad.xiaomi.com
+DOMAIN-SUFFIX,cdn.ad.xiaomi.com
+DOMAIN-SUFFIX,e.ad.xiaomi.com
+DOMAIN-SUFFIX,adl.xiaomi.com
+DOMAIN-SUFFIX,ad.doubleclick.net
+DOMAIN-SUFFIX,v.admaster.com
+DOMAIN-SUFFIX,v.admaster.com.cn
+DOMAIN-SUFFIX,79t2.admaster.com.cn
+DOMAIN-SUFFIX,alert.kuyun.com
+DOMAIN-SUFFIX,config.kuyun.com
+DOMAIN-SUFFIX,logonext.tv.kuyun.com
+DOMAIN-SUFFIX,tvapi.kuyun.com
+DOMAIN-SUFFIX,gvod.aiseejapp.atianqi.com
+DOMAIN-SUFFIX,tv.aiseet.atianqi.com
+DOMAIN-SUFFIX,vv.play.aiseet.atianqi.com
+DOMAIN-SUFFIX,omgmta.play.aiseet.atianqi.com
+DOMAIN-SUFFIX,t7z.cupid.ptqy.gitv.tv
+DOMAIN-SUFFIX,t7z.cupid.ptqy.gity.tv
+DOMAIN-SUFFIX,api.cupid.ptqy.gitv.tv
+DOMAIN-SUFFIX,secure.chn.imrworldwide.com
+DOMAIN-SUFFIX,alog.umeng.com

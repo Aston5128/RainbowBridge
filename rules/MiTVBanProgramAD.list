@@ -1,0 +1,28 @@
+# Xiaomi TV program/recommendation domains
+# Conservative set: recommendation, telemetry, and launcher-distribution style endpoints.
+# Intentionally excludes broad or high-risk domains such as mi.com, app store core hosts,
+# push registration, and casting-related core services.
+DOMAIN-SUFFIX,bss.pandora.xiaomi.com
+DOMAIN-SUFFIX,b.netcheck.gallery.pandora.xiaomi.com
+DOMAIN-SUFFIX,dvb.pandora.xiaomi.com
+DOMAIN-SUFFIX,de.pandora.xiaomi.com
+DOMAIN-SUFFIX,gallery.pandora.xiaomi.com
+DOMAIN-SUFFIX,jellyfish.pandora.xiaomi.com
+DOMAIN-SUFFIX,mishop.pandora.xiaomi.com
+DOMAIN-SUFFIX,milink.pandora.xiaomi.com
+DOMAIN-SUFFIX,misc.pandora.xiaomi.com
+DOMAIN-SUFFIX,pandora.mi.com
+DOMAIN-SUFFIX,redirect.pandora.xiaomi.com
+DOMAIN-SUFFIX,stat.pandora.xiaomi.com
+DOMAIN-SUFFIX,tat.pandora.xiaomi.com
+DOMAIN-SUFFIX,tv.weixin.pandora.xiaomi.com
+DOMAIN-SUFFIX,tvmanager.pandora.xiaomi.com
+DOMAIN-SUFFIX,tvmgr.pandora.xiaomi.com
+DOMAIN-SUFFIX,upgrade.mishop.pandora.xiaomi.com
+DOMAIN-SUFFIX,upgrade.xiabop.pandora.xiaomi.com
+DOMAIN-SUFFIX,starfish.pandora.xiaomi.com
+DOMAIN-SUFFIX,assistant.pandora.xiaomi.com
+DOMAIN-SUFFIX,data.mistat.xiaomi.com
+DOMAIN-SUFFIX,mitv.tracking.miui.com
+DOMAIN-SUFFIX,tracking.miui.com
+DOMAIN-SUFFIX,metok.sys.miui.com
