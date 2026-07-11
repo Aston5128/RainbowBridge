@@ -129,7 +129,7 @@ dns:
 #
 #   为了兼顾 Mihomo 通用性和国内 CDN 体验，下面额外使用 nameserver-policy + direct-nameserver：
 #   - 国内域名、私有域名和腾讯/微信常见域名优先交给国内 DNS 解析。
-#   - 代理节点的服务器域名由 proxy-server-nameserver 使用公共 DNS 单独解析，避免节点无法启动或测速。
+#   - 代理节点的服务器域名由 proxy-server-nameserver 使用国内 DNS 单独解析，避免节点无法启动或测速。
 #   - 直连流量也优先使用国内 DNS，减少 fake-ip + 远端 DoH 对国内 CDN 调度的影响。
 #   - 其他域名使用国际 DoH nameserver / fallback 组合，避免默认查询触达国内解析器。
 #
