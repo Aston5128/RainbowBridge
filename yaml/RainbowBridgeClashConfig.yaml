@@ -103,7 +103,8 @@ dns:
     - 114.114.114.114
   direct-nameserver-follow-policy: true
   fallback:
-    # 第一阶段只移除明文国际 DNS，其余行为与 main 保持一致。
+    - 8.8.8.8 # 谷歌DNS
+    - 1.1.1.1 # Cloudflare DNS
     - tls://dns.rubyfish.cn:853
     - tls://1.0.0.1:853
     - tls://dns.google:853
@@ -115,13 +116,26 @@ dns:
      ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
        - 240.0.0.0/4
 
-# 1. Clash DNS 请求逻辑：
-#   (1) nameserver 与 fallback 并发查询，再由 fallback-filter 选择结果。
-#   (2) 国内域名仍由 nameserver-policy / direct-nameserver 交给国内 DNS。
-#   (3) fallback 仅保留 DoT/DoH，先验证移除 8.8.8.8 和 1.1.1.1 明文 UDP 后的兼容性。
+# 1. clash DNS 请求逻辑：
+#   (1) 当访问一个域名时， nameserver 与 fallback 列表内的所有服务器并发请求，得到域名对应的 IP 地址。
+#   (2) clash 将选取 nameserver 列表内，解析最快的结果。
+#   (3) 若解析结果中，IP 地址属于 国外，那么 clash 将选择 fallback 列表内，解析最快的结果。
 #
-# 2. 本阶段尚未解决国内 nameserver 也会收到国外域名查询的问题；
-#   目标是先确认与 main 等价的解析模型在移除明文国际 DNS 后仍能稳定工作。
+#   为了兼顾 Mihomo 通用性和国内 CDN 体验，下面额外使用 nameserver-policy + direct-nameserver：
+#   - 国内域名、私有域名和腾讯/微信常见域名优先交给国内 DNS 解析。
+#   - 直连流量也优先使用国内 DNS，减少 fake-ip + 远端 DoH 对国内 CDN 调度的影响。
+#   - 其他域名继续使用 nameserver / fallback 组合，以保持对境外域名的抗污染能力。
+#
+# 2. clash DNS 配置注意事项：
+#   (1) 如果您为了确保 DNS 解析结果无污染，请仅保留列表内以 tls:// 或 https:// 开头的 DNS 服务器，但是通常对于国内域名没有必要。
+#   (2) 如果您主要遇到的是国内服务加载慢、图片慢、CDN 命中不佳，优先调整 nameserver-policy / direct-nameserver，而不是先改分流规则。
+#   (3) fake-ip-filter 仅保留对少量国内高频图片域名的例外，避免一开始大面积放开 fake-ip。
+#
+# 3. 关于 DNS over HTTPS (DoH) 和 DNS over TLS (DoT) 的选择：
+#   对于两项技术双方各执一词，而且会无休止的争论，各有利弊。各位请根据具体需求自行选择，但是配置文件内默认启用 DoT，因为目前国内没有封锁或管制。
+#   DoH: 以 https:// 开头的 DNS 服务器。拥有更好的伪装性，且几乎不可能被运营商或网络管理封锁，但查询效率和安全性可能略低。
+#   DoT: 以 tls:// 开头的 DNS 服务器。拥有更高的安全性和查询效率，但端口有可能被管制或封锁。
+#   若要了解更多关于 DoH/DoT 相关技术，请自行查阅规范文档。
 
 # 代理组
 # 下面这3个不要引到订阅里去 要不会出错
