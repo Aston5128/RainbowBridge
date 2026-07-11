@@ -76,10 +76,16 @@ dns:
   default-nameserver:
     - 223.5.5.5 # 阿里DNS
     - 119.29.29.29 # 腾讯DNS
+    - 117.50.11.11 # ONE DNS拦截版 恶意网站拦截、广告过滤
+    - 117.50.10.10 # ONE DNS纯净版 直接返回其真实的响应结果
+    - 114.114.114.114 # 114DNS
+    #  - 180.76.76.76 # 百度DNS
   nameserver-policy:
     geosite:private,cn: &cn_dns
       - 223.5.5.5
       - 119.29.29.29
+      - 117.50.10.10
+      - 114.114.114.114
     '+.qq.com': *cn_dns
     '+.gtimg.com': *cn_dns
     '+.myqcloud.com': *cn_dns
@@ -88,31 +94,34 @@ dns:
     '+.wechat.com': *cn_dns
     '+.weixin.com': *cn_dns
   nameserver:
-    # 国外及未分类域名使用直连加密 DoH，不与代理组建立循环依赖。
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-  # 仅用于解析代理节点域名，避免启动时产生 DNS 循环。
-  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query # 阿里 DoH DNS
+    - https://doh.360.cn/dns-query # 360 DoH DNS
+  direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29
+    - 117.50.10.10
+    - 114.114.114.114
+  direct-nameserver-follow-policy: true
+  fallback:
+    # 第一阶段只移除明文国际 DNS，其余行为与 main 保持一致。
+    - tls://dns.rubyfish.cn:853
+    - tls://1.0.0.1:853
+    - tls://dns.google:853
+    - https://dns.rubyfish.cn/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+  fallback-filter:
+     geoip: true # 默认
+     ipcidr: # 在这个网段内的 IP 地址会被考虑为被污染的 IP
+       - 240.0.0.0/4
 
-# 1. Mihomo DNS 请求逻辑：
-#   (1) 国内域名命中 nameserver-policy，通过国内 UDP DNS 直连解析，优先保证延迟和 CDN 调度。
-#   (2) 国外及未分类域名直接使用 Cloudflare / Google DoH/443，国内链路上不传输明文 DNS。
-#   (3) 代理节点自身的域名由 proxy-server-nameserver 直连解析，防止代理启动依赖自身。
+# 1. Clash DNS 请求逻辑：
+#   (1) nameserver 与 fallback 并发查询，再由 fallback-filter 选择结果。
+#   (2) 国内域名仍由 nameserver-policy / direct-nameserver 交给国内 DNS。
+#   (3) fallback 仅保留 DoT/DoH，先验证移除 8.8.8.8 和 1.1.1.1 明文 UDP 后的兼容性。
 #
-#   不再使用 fallback 或 direct-nameserver：
-#   - fallback 会让国内外 DNS 同时收到国外域名查询，DNS 泄露测试仍会看到国内解析器。
-#   - direct-nameserver 可能让被分流为 DIRECT 的国外域名重新使用国内 DNS。
-#
-# 2. clash DNS 配置注意事项：
-#   (1) 国内 DNS 使用 UDP 明文查询，这是为响应速度和国内 CDN 调度做的取舍。
-#   (2) 国外 DNS 使用直连 DoH/443，不再依赖代理组，避免 DNS 与代理建立循环依赖。
-#   (3) Cloudflare 与 Google 并行作为国外上游，任一 DoH 可用即可完成解析。
-#   (4) 如果国内服务的 CDN 命中不佳，应优先检查 GeoSite 数据是否过期或漏分类。
-#   (5) fake-ip-filter 仅保留对少量国内高频图片域名的例外，避免大面积放开 fake-ip。
-#
-# 3. 国外上游使用直连 DoH/443，代理切换、节点异常不会破坏 DNS 解析链路。
+# 2. 本阶段尚未解决国内 nameserver 也会收到国外域名查询的问题；
+#   目标是先确认与 main 等价的解析模型在移除明文国际 DNS 后仍能稳定工作。
 
 # 代理组
 # 下面这3个不要引到订阅里去 要不会出错
