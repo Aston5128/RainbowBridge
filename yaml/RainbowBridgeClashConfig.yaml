@@ -99,9 +99,9 @@ dns:
     - https://dns.google/dns-query
   # 仅解析代理节点的服务器域名，不参与普通网站 DNS 查询。
   proxy-server-nameserver:
-    # 使用国际 DoH 获取机场节点的境外入口，同时避免节点域名引导解析失败。
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
+    # 节点冷启动时不依赖 DoH，优先保证节点域名可解析和可测速。
+    - 8.8.8.8
+    - 1.1.1.1
   direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29
