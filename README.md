@@ -1,17 +1,28 @@
 # RainbowBridge
 
-Based on [ACL4SSR Rule](https://github.com/ACL4SSR/ACL4SSR/tree/master)
+基于 [ACL4SSR](https://github.com/ACL4SSR/ACL4SSR) 调整的个人分流配置，适用于通过 subconverter 生成 Clash、OpenClash 和 Stash 配置。
 
-## OpenClash DNS 分流
+## 配置入口
 
-Clash 和 OpenClash 统一使用 `RainbowBridge.ini`。
-其引用的 [Mihomo DNS 配置](yaml/RainbowBridgeClashConfig.yaml) 正在进行单变量验证：
+| 客户端 | 远程配置 |
+| --- | --- |
+| Clash / OpenClash | [`RainbowBridge.ini`](https://raw.githubusercontent.com/Aston5128/RainbowBridge/main/RainbowBridge.ini) |
+| Stash | [`RainbowBridgeForStash.ini`](https://raw.githubusercontent.com/Aston5128/RainbowBridge/main/RainbowBridgeForStash.ini) |
 
-- OpenClash 必须关闭 `respect-rules`，避免上游 DNS 连接被二次分流；
-- 当前只将默认 `nameserver` 从国内 DoH 改为 Cloudflare/Google DoH；
-- `proxy-server-nameserver` 仅使用 `8.8.8.8/1.1.1.1` 解析代理节点域名，避免节点冷启动依赖 DoH；它不参与普通网站查询；
-- 国内 `nameserver-policy`、`direct-nameserver`、fallback 和 fallback-filter 均保持 `main` 的配置；
-- 用于判断大陆 DNS 记录来自默认 nameserver，还是明文 fallback 被运营商接管。
-- 节点健康检查改用 `https://cp.cloudflare.com/generate_204`，避免 Apple HTTP 测速地址受 DNS/CDN 调度影响。
+将对应链接填入 subconverter 的远程配置地址即可。OpenClash 与普通 Clash 共用 `RainbowBridge.ini`。
 
-`codex/dns-routing-test` 为 DNS 分流验证分支，其 `RainbowBridge.ini` 仅引用该分支内的 YAML，不影响 `main` 用户。
+## 主要特性
+
+- 常用服务、AI、流媒体、游戏平台及地区节点分组；
+- 自定义直连、代理、广告拦截和固定 IP 规则；
+- 国内域名优先使用国内 DNS，其他域名默认使用 Cloudflare / Google DoH；
+- 使用 HTTPS 地址进行节点健康检查，减少 DNS 和 CDN 调度对测速的影响。
+
+## OpenClash 注意事项
+
+- 保持 DNS 劫持和 Fake-IP 启用；
+- 关闭 `respect-rules`，避免 DNS 上游连接被二次分流；
+- 关闭“自定义上游 DNS 服务器”总开关，让配置文件中的 DNS 设置生效；
+- 如果局域网没有完整代理 IPv6，建议同时关闭 IPv6 DNS。
+
+本项目以个人使用需求为主，规则更新后请先自行验证。上游规则版权归原项目所有。
