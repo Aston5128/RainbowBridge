@@ -99,10 +99,9 @@ dns:
     - https://dns.google/dns-query
   # 仅解析代理节点的服务器域名，不参与普通网站 DNS 查询。
   proxy-server-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 117.50.10.10
-    - 114.114.114.114
+    # 保持与 main 原本 nameserver 相同的节点调度结果。
+    - https://dns.alidns.com/dns-query
+    - https://doh.360.cn/dns-query
   direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29

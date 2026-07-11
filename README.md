@@ -9,7 +9,7 @@ Clash 和 OpenClash 统一使用 `RainbowBridge.ini`。
 
 - OpenClash 必须关闭 `respect-rules`，避免上游 DNS 连接被二次分流；
 - 当前只将默认 `nameserver` 从国内 DoH 改为 Cloudflare/Google DoH；
-- 新增 `proxy-server-nameserver` 使用国内 DNS 解析代理节点域名，不参与普通网站查询；
+- 新增 `proxy-server-nameserver` 使用与 `main` 原 nameserver 一致的阿里/360 DoH 解析代理节点域名，不参与普通网站查询；
 - 国内 `nameserver-policy`、`direct-nameserver`、fallback 和 fallback-filter 均保持 `main` 的配置；
 - 用于判断大陆 DNS 记录来自默认 nameserver，还是明文 fallback 被运营商接管。
 
