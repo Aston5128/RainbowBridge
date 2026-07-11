@@ -89,9 +89,9 @@ dns:
     '+.wechat.com': *cn_dns
     '+.weixin.com': *cn_dns
   nameserver:
-    # 国外及未分类域名使用 Cloudflare TCP DNS，并强制经代理组出口。
+    # 国外及未分类域名使用 Cloudflare DoH/443，并强制经代理组出口。
     # 必须保留引号，否则 YAML 会将 # 后的代理组名当作注释。
-    - 'tcp://1.1.1.1:53#🚀 节点选择'
+    - 'https://1.1.1.1/dns-query#🚀 节点选择'
   # 仅用于解析代理节点域名，避免启动时产生 DNS 循环。
   proxy-server-nameserver:
     - 223.5.5.5
@@ -99,7 +99,7 @@ dns:
 
 # 1. Mihomo DNS 请求逻辑：
 #   (1) 国内域名命中 nameserver-policy，通过国内 UDP DNS 直连解析，优先保证延迟和 CDN 调度。
-#   (2) 国外及未分类域名使用 Cloudflare TCP DNS，查询经“🚀 节点选择”出口。
+#   (2) 国外及未分类域名使用 Cloudflare DoH/443，查询经“🚀 节点选择”出口。
 #   (3) 代理节点自身的域名由 proxy-server-nameserver 直连解析，防止代理启动依赖自身。
 #
 #   不再使用 fallback 或 direct-nameserver：
@@ -108,13 +108,12 @@ dns:
 #
 # 2. clash DNS 配置注意事项：
 #   (1) 国内 DNS 使用 UDP 明文查询，这是为响应速度和国内 CDN 调度做的取舍。
-#   (2) 国外 DNS 在国内到代理节点之间受代理隧道保护；从代理节点到 Cloudflare 的 TCP/53 查询为明文。
+#   (2) 国外 DNS 使用 DoH/443 并经代理节点转发，兼容性优先于 TCP/53。
 #   (3) 如果“🚀 节点选择”无可用节点，国外域名将无法解析；国内域名和代理节点域名不受影响。
 #   (4) 如果国内服务的 CDN 命中不佳，应优先检查 GeoSite 数据是否过期或漏分类。
 #   (5) fake-ip-filter 仅保留对少量国内高频图片域名的例外，避免大面积放开 fake-ip。
 #
-# 3. 本配置为性能取向，国外使用 TCP DNS 而不是 DoH/DoT。
-#   代理隧道已保护国内到节点的查询内容，但节点运营者及节点上游网络可以看到明文 DNS。
+# 3. 国外上游使用 DoH/443，避免部分节点出口无法访问 TCP/53 导致国外域名整体断解析。
 
 # 代理组
 # 下面这3个不要引到订阅里去 要不会出错
