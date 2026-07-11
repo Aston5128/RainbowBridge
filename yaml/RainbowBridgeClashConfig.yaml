@@ -94,8 +94,9 @@ dns:
     '+.wechat.com': *cn_dns
     '+.weixin.com': *cn_dns
   nameserver:
-    - https://dns.alidns.com/dns-query # 阿里 DoH DNS
-    - https://doh.360.cn/dns-query # 360 DoH DNS
+    # 默认域名改用国际 DoH；国内域名仍由 nameserver-policy 分配给国内 DNS。
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
   direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -124,7 +125,7 @@ dns:
 #   为了兼顾 Mihomo 通用性和国内 CDN 体验，下面额外使用 nameserver-policy + direct-nameserver：
 #   - 国内域名、私有域名和腾讯/微信常见域名优先交给国内 DNS 解析。
 #   - 直连流量也优先使用国内 DNS，减少 fake-ip + 远端 DoH 对国内 CDN 调度的影响。
-#   - 其他域名继续使用 nameserver / fallback 组合，以保持对境外域名的抗污染能力。
+#   - 其他域名使用国际 DoH nameserver / fallback 组合，避免默认查询触达国内解析器。
 #
 # 2. clash DNS 配置注意事项：
 #   (1) 如果您为了确保 DNS 解析结果无污染，请仅保留列表内以 tls:// 或 https:// 开头的 DNS 服务器，但是通常对于国内域名没有必要。
