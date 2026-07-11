@@ -163,7 +163,7 @@ dns:
 # Clash for Windows
 # Proxies module latency test settings
 cfw-latency-timeout: 3000
-cfw-latency-url: http://www.apple.com/library/test/success.html
+cfw-latency-url: https://cp.cloudflare.com/generate_204
 
 # 混合配置（mixin）
 # 支持向所有配置文件中注入公共属性设置

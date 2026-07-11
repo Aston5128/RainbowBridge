@@ -12,5 +12,6 @@ Clash 和 OpenClash 统一使用 `RainbowBridge.ini`。
 - `proxy-server-nameserver` 仅使用 `8.8.8.8/1.1.1.1` 解析代理节点域名，避免节点冷启动依赖 DoH；它不参与普通网站查询；
 - 国内 `nameserver-policy`、`direct-nameserver`、fallback 和 fallback-filter 均保持 `main` 的配置；
 - 用于判断大陆 DNS 记录来自默认 nameserver，还是明文 fallback 被运营商接管。
+- 节点健康检查改用 `https://cp.cloudflare.com/generate_204`，避免 Apple HTTP 测速地址受 DNS/CDN 调度影响。
 
 `codex/dns-routing-test` 为 DNS 分流验证分支，其 `RainbowBridge.ini` 仅引用该分支内的 YAML，不影响 `main` 用户。
