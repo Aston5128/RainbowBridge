@@ -70,6 +70,10 @@ dns:
   fake-ip-filter-mode: blacklist
   fake-ip-filter: # fake ip 白名单列表，如果你不知道这个参数的作用，请勿修改
     - '*.lan'
+    - '*.local'
+    - localhost
+    - '*.localhost'
+    - '*.home.arpa'
     - localhost.ptlogin2.qq.com
     - '*.qlogo.cn'
     - '*.qpic.cn'
