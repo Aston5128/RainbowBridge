@@ -15,8 +15,8 @@
 
 - 常用服务、AI、流媒体、游戏平台及地区节点分组；
 - 自定义直连、代理、广告拦截和固定 IP 规则；
-- 国内域名优先使用国内 DNS，其他域名默认使用 Cloudflare / Google DoH；
-- 使用 HTTPS 地址进行节点健康检查，减少 DNS 和 CDN 调度对测速的影响。
+- Clash / OpenClash 对国内域名使用国内 DNS，其他域名默认使用 Cloudflare / Google DoH；
+- Clash / OpenClash 使用 HTTPS 地址进行节点健康检查；Stash 保留独立且已验证的 DNS 与测速配置。
 
 ## OpenClash 注意事项
 
